@@ -1,0 +1,38 @@
+diff --git a/tools/libSwiftSyntaxParser/CMakeLists.txt b/tools/libSwiftSyntaxParser/CMakeLists.txt
+index 0b33758f923..449cd488e6f 100644
+--- a/tools/libSwiftSyntaxParser/CMakeLists.txt
++++ b/tools/libSwiftSyntaxParser/CMakeLists.txt
+@@ -51,6 +51,15 @@ if(NOT CMAKE_SYSTEM_NAME STREQUAL Darwin)
+ endif()
+ 
+ add_dependencies(parser-lib libSwiftSyntaxParser)
++
++target_compile_options(libSwiftSyntaxParser PRIVATE
++  "SHELL:-Xclang --linker-option=-lc"
++  "SHELL:-Xclang --linker-option=-lc++"
++  "SHELL:-Xclang --linker-option=-lncurses"
++  "SHELL:-Xclang --linker-option=-lz"
++)
++target_link_options(libSwiftSyntaxParser PRIVATE -Wl,-x -Wl,-r --ld-path=${CMAKE_CURRENT_SOURCE_DIR}/linker.sh)
++
+ swift_install_in_component(TARGETS libSwiftSyntaxParser
+   ARCHIVE DESTINATION "lib${LLVM_LIBDIR_SUFFIX}/swift/${SWIFT_SDK_${SWIFT_HOST_VARIANT_SDK}_LIB_SUBDIR}" COMPONENT parser-lib
+   LIBRARY DESTINATION "lib${LLVM_LIBDIR_SUFFIX}/swift/${SWIFT_SDK_${SWIFT_HOST_VARIANT_SDK}_LIB_SUBDIR}" COMPONENT parser-lib
+diff --git a/tools/libSwiftSyntaxParser/linker.sh b/tools/libSwiftSyntaxParser/linker.sh
+new file mode 100755
+index 00000000000..f340597b384
+--- /dev/null
++++ b/tools/libSwiftSyntaxParser/linker.sh
+@@ -0,0 +1,12 @@
++#!/bin/bash
++
++set -euo pipefail
++
++args=()
++for arg in "$@"; do
++  if [[ "$arg" != -dead_strip ]]; then
++    args+=("$arg")
++  fi
++done
++
++ld "${args[@]}"
