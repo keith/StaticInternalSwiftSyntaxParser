@@ -35,6 +35,11 @@ the xcframework and use the internal
 `lib_InternalSwiftSyntaxParser.framework` however you'd normally include
 dependencies.
 
+Note: because of [this bug](https://bugs.swift.org/browse/SR-15802) if
+you want to depend on this target in SwiftPM and target multiple
+architectures in a single build, you must only depend on it from top
+level targets such as a test or executable target.
+
 ## Building
 
 To create a new release for this project follow these steps:
