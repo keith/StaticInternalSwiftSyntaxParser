@@ -65,5 +65,10 @@ To create a new release for this project follow these steps:
   targets that include all of their nested dependencies
 - Be sure to pass `-dead_strip` to your linker when linking this library
   with a binary to save on binary size (you likely already are)
+- As of Swift 5.6 Apple bundles a dynamic version of this library as part
+  of the SwiftSyntax release. In order to ignore that version and prefer
+  this static version, you must pass `-Xlinker -dead_strip_dylibs` when
+  building your tool. This can be done by adding it to the `linkerSettings`
+  of the target that depends on this library in your Package.swift file.
 
 [swift-syntax]: https://github.com/apple/swift-syntax
