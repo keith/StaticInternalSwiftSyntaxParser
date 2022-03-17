@@ -26,4 +26,6 @@ mkdir -p lib_InternalSwiftSyntaxParser.framework
 lipo -create -output lib_InternalSwiftSyntaxParser.framework/lib_InternalSwiftSyntaxParser "$binary1" "$binary2"
 xcodebuild -create-xcframework -framework lib_InternalSwiftSyntaxParser.framework -output lib_InternalSwiftSyntaxParser.xcframework
 popd
+rm -rf ./lib_InternalSwiftSyntaxParser.xcframework ./lib_InternalSwiftSyntaxParser.xcframework.zip
 mv "$workdir/lib_InternalSwiftSyntaxParser.xcframework" .
+zip -r lib_InternalSwiftSyntaxParser.xcframework.zip lib_InternalSwiftSyntaxParser.xcframework
