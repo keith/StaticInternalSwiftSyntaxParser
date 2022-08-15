@@ -54,8 +54,8 @@ To create a new release for this project follow these steps:
 - If you'd like a fat binary for supporting arm64 and x86_64 macs, build
   with `./swift/utils/build-script --release --cross-compile-hosts
   macosx-x86_64`
-- Run `create-xcframework.sh binary1 binary2` to create the combined
-  framework
+- Run `create-xcframework.sh swift/src/dir binary1 binary2` to create
+  the combined framework
 
 ## Notes
 
