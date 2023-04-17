@@ -1,5 +1,9 @@
 # StaticInternalSwiftSyntaxParser
 
+NOTE: As of Swift 5.8 this library is no more, instead it has been
+reimplemented in Swift as part of
+[`SwiftSyntax`](https://github.com/apple/swift-syntax)
+
 This is a distribution of `lib_InternalSwiftSyntaxParser.dylib` built
 statically. This allows you to create a self contained portable binary
 that depends on [`swift-syntax`][swift-syntax] instead of having to
